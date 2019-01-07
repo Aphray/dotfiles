@@ -1,0 +1,40 @@
+#!/usr/bin/python
+
+import time
+from subprocess import check_output
+
+cpu_temp_file = '/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input'
+gpu_temp_file = '/sys/class/drm/card0/device/hwmon/hwmon1/temp1_input'
+
+color1 = '#31a354'
+color2 = '#DCA060'
+color3 = '#d02300'
+
+while True:
+	with open(cpu_temp_file,'r') as f1:
+		cpu_temp = int(int(f1.read().strip('\n'))/1000)
+
+	if cpu_temp <= 45:
+		cpu_color = color1
+	elif cpu_temp > 45 and cpu_temp <= 75:
+		cpu_color = color2
+	else:
+		cpu_color = color3
+			
+	with open(gpu_temp_file,'r') as f2:
+		gpu_temp = int(int(f2.read().strip('\n'))/1000)
+
+	if gpu_temp <= 50:
+		gpu_color = color1
+	elif gpu_temp > 50 and gpu_temp <= 75:
+		gpu_color = color2
+	else:
+		gpu_color = color3	
+			
+	print(	'CPU ' + '%{F' + cpu_color + '}' + str(cpu_temp) + '°C %{F-}' +
+			'GPU ' + '%{F' + gpu_color + '}' + str(gpu_temp) + '°C%{F-}' 	)
+			
+	time.sleep(1)
+		
+	
+

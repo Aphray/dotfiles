@@ -1,0 +1,35 @@
+#!/usr/bin/python
+
+import time
+import psutil as ps
+import shared_variables as sv
+
+colors = sv.gradient_colormap
+prog_chars = sv.progress_characters
+prog_intrvls = sv.progres_intervals
+	
+bg_color = '#2e2f30'
+
+while True:
+	cpu_loads = ps.cpu_percent(0, percpu = True)
+	cpu_load = ps.cpu_percent(0)
+	#cpu_freq = ps.cpu_freq()
+	
+
+	indexes_cpu = [l[0] for l in [[n for n,x in enumerate(prog_intrvls) if x - load >= 0] for load in cpu_loads]]
+	prog_bars_cpu = [prog_chars[x] for x in indexes_cpu]
+		
+	index_cpu_load = [n for n,x in enumerate(prog_intrvls) if x - cpu_load >= 0][0]
+
+
+	print(	"CPU %{F" + colors[index_cpu_load] + "}" + str(int(cpu_load)) + "%  " +
+			"%{B" + bg_color + "}%{F" + colors[indexes_cpu[0]] + "}" + prog_bars_cpu[0] + "%{F-}%{B-} " + 
+			"%{B" + bg_color + "}%{F" + colors[indexes_cpu[1]] + "}" + prog_bars_cpu[1] + "%{F-}%{B-} " + 
+			"%{B" + bg_color + "}%{F" + colors[indexes_cpu[2]] + "}" + prog_bars_cpu[2] + "%{F-}%{B-} " + 
+			"%{B" + bg_color + "}%{F" + colors[indexes_cpu[3]] + "}" + prog_bars_cpu[3] + "%{F-}%{B-} "		)
+	time.sleep(1)
+
+
+		
+	
+

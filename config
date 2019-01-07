@@ -1,0 +1,15 @@
+rofi.modi: window,run,ssh
+rofi.combi-modi: window,run,ssh
+
+rofi.font: Iosevka Bold 10 
+rofi.eh: 1
+rofi.line-margin: 30
+rofi.separator-style: solid
+rofi.scrollbar-width: 5
+rofi.width: 25
+rofi.padding: 100
+rofi.bw: 0
+rofi.auto-select: false
+rofi.sidebar-mode: true
+rofi.fixed-num-lines: false
+rofi.location: 0
